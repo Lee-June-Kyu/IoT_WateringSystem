@@ -1,3 +1,8 @@
+// v2.0 + (send server)
+// 아두이노 -> 서버 HTTP통신 
+// 프로토타입
+
+
 #include <ArduinoJson.h>
 #include <LiquidCrystal_I2C.h>
 #include <Stepper.h>
