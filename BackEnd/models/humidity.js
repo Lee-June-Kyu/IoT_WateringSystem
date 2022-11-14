@@ -4,10 +4,6 @@ class Humidity extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        plant_id: {
-          type: Sequelize.INTEGER,
-          allowNull: false,
-        },
         measuring_date: {
           type: Sequelize.DATE,
           allowNull: false,

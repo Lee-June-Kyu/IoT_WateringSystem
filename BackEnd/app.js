@@ -4,10 +4,11 @@ const morgan = require('morgan');
 
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
+const arduino_url = require('./routes/arduino')
 
 const app = express();
 app.set('port', 3001);
-app.set('view engine', 'html');
+// app.set('view engine', 'html');
 
 sequelize.sync({ force: false })
   .then(() => {
@@ -23,6 +24,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
+app.use('/humidity', arduino_url)
 
 app.use((req, res, next) => {
   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

@@ -27,7 +27,8 @@ class Plant extends Sequelize.Model {
         etc: {
           type: Sequelize.STRING(50),
           allowNull: false,
-        }
+        },
+        
       },
       {
         sequelize,
