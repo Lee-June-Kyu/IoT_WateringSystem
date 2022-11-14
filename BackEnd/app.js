@@ -8,10 +8,7 @@ const indexRouter = require('./routes');
 const app = express();
 app.set('port', 3001);
 app.set('view engine', 'html');
-nunjucks.configure('views', {
-  express: app,
-  watch: true,
-});
+
 sequelize.sync({ force: false })
   .then(() => {
     console.log('데이터베이스 연결 성공');
@@ -26,8 +23,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
-app.use('/comments', commentsRouter);
 
 app.use((req, res, next) => {
   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);

@@ -1,23 +1,23 @@
 const Sequelize = require('sequelize');
-const User = require('./user');
-const Comment = require('./comment');
+const Humidity = require('./humidity');
+const Plant = require('./plant');
 
-const env = process.env.NODE_ENV || 'development';
+const env = 'development';
 const config = require('../config/config')[env];
 const db = {};
 
 const sequelize = new Sequelize(config.database, config.username, config.password, config);
 
 db.sequelize = sequelize;
-db.Sequelize = Sequelize;
+// db.Sequelize = Sequelize;
 
-db.User = User;
-db.Comment = Comment;
+db.Humidity=Humidity;
+db.Plant = Plant;
 
-User.init(sequelize);
-Comment.init(sequelize);
+Humidity.init(sequelize);
+Plant.init(sequelize);
 
-User.associate(db);
-Comment.associate(db);
+Humidity.associate(db);
+Plant.associate(db);
 
 module.exports = db;
