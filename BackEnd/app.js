@@ -4,6 +4,7 @@ const morgan = require('morgan');
 
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
+
 const arduino_url = require('./routes/arduino')
 const web = require('./routes/web')
 

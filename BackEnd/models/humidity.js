@@ -4,10 +4,6 @@ class Humidity extends Sequelize.Model {
   static init(sequelize) {
     return super.init(
       {
-        measuring_date: {
-          type: Sequelize.DATE,
-          allowNull: false,
-        },
         humidity_value: {
           type: Sequelize.STRING(50),
           allowNull: false,
