@@ -5,6 +5,7 @@ const morgan = require('morgan');
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
 const arduino_url = require('./routes/arduino')
+const web = require('./routes/web')
 
 const app = express();
 app.set('port', 3001);
@@ -25,6 +26,7 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
 app.use('/humidity', arduino_url)
+app.use('/web', web)
 
 app.use((req, res, next) => {
   const error =  new Error(`${req.method} ${req.url} 라우터가 없습니다.`);
