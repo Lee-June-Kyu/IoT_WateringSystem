@@ -1,4 +1,4 @@
-# BackEnd Area
+# WateringSystem BackEnd - Node.js
 
 ## BackEnd Libraries Used
 ```
