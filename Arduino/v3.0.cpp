@@ -137,15 +137,14 @@ void dust(int dust, char *mtime, String iotId) {
 
     StaticJsonBuffer<200> jsonBuffer;  //json변환에 필요한 버퍼 생성
     JsonObject& root = jsonBuffer.createObject(); //json형식을 만들어 낼수있는 객체 생성
-    root["hh"] = pre; // key=["dust_val"], value=dust_val
-    root["name"] = "choieuntaek";
-    // {"hh":"huminity"}
+    root["humidity"] = pre; // key=["dust_val"], value=dust_val
+
     root.printTo(jsondata); // printTo => String변수로 변환
     Serial.print("jsondata: ");
     Serial.println(jsondata);
 
     // send the HTTP POST request
-    client.print(F("POST /hh"));
+    client.print(F("POST /humidity/1"));
     client.print(F(" HTTP/1.1\r\n"));
     client.print(F("Cache-Control: no-cache\r\n"));
     client.print(F("Host: 192.168.4.1:80\r\n"));
