@@ -4,6 +4,7 @@
     "password": "root1234",
     "database": "nodejs",
     "host": "127.0.0.1",
+    "port": "3305",
     "dialect": "mysql"
   },
   "test": {

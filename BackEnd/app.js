@@ -1,16 +1,18 @@
 const express = require('express');
 const path = require('path');
 const morgan = require('morgan');
-
+const cors = require('cors');
 const { sequelize } = require('./models');
 const indexRouter = require('./routes');
-
+const corsConfig = require('./config/corsConfig');
 const arduino_url = require('./routes/arduino')
 const web = require('./routes/web')
 
 const app = express();
 app.set('port', 3001);
+app.use(cors(corsConfig)); // cors설정
 // app.set('view engine', 'html');
+// app.use(morgan('dev'));
 
 sequelize.sync({ force: false })
   .then(() => {

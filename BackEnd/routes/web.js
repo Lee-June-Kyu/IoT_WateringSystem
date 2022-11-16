@@ -2,6 +2,17 @@ const express = require("express");
 const router = express.Router();
 const { Humidity, Plant } = require("../models");
 
+router.get("/plants", async (req, res, next) => {
+  try {
+    const plants = await Plant.findAll();
+    return res.status(200).json({
+      data: plants,
+    });
+  } catch (err) {
+    return res.status(500).send("plants err:", err);
+  }
+});
+
 router.get("/plant/:id", async (req, res, next) => {
   try {
     if (!!req.params.id) {
