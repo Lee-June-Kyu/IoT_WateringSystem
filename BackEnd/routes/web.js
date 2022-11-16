@@ -10,15 +10,15 @@ router.get("/plant/:id", async (req, res,next) => {
         where: { id: req.params.id },
       })
       if(!!plant){
-        res.status(200).json({ success: true, data: plant })
+        return res.status(200).json({ success: true, data: plant })
       }
       else{
-        res.status(200).json({ success: true, data: {}})
+        return res.status(200).json({ success: true, data: {}})
       }
     }
 
   } catch (err) {
-    res.status(500).send('plant err:', err)
+    return res.status(500).send('plant err:', err)
   }
 })
 
@@ -29,17 +29,17 @@ router.get("/humidity/:id" , async (req, res)=> {
         where: { PlantId: req.params.id },
       })
       if(!!humidityInfos){
-        res.status(200).json({ success: true, data: humidityInfos })
+        return res.status(200).json({ success: true, data: humidityInfos })
       }
       else {
-        res.status(200).json({ success: true, data: {} })
+        return res.status(200).json({ success: true, data: {} })
       }
     }
     else {
-      res.status(404).send('url 오류')
+      return res.status(404).send('url 오류')
     }
   } catch (err) {
-    res.status(500).send('humidityInfo err:', err)
+    return res.status(500).send('humidityInfo err:', err)
   }
 })
 

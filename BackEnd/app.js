@@ -26,7 +26,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 app.use('/', indexRouter);
-app.use('/humidity', arduino_url)
+app.use('/arduino', arduino_url)
 app.use('/web', web)
 
 app.use((req, res, next) => {
