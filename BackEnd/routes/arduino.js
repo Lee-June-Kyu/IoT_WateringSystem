@@ -19,7 +19,7 @@ router.post("/humidity/:id", async (req, res) => {
           humidity_value: jsonData["humidity"],
           PlantId: req.params.id,
         });
-        plant.watering_status = true;
+        // plant.watering_status = true;
         try {
           return res.status(200).send("gg");
         } catch (error) {
@@ -38,42 +38,25 @@ router.post("/humidity/:id", async (req, res) => {
 
 router.get("/motor/:id", async (req, res, next) => {
   try {
-    console.log("모터 get 들어오냐 ?");
-    // if(!!req.params.id){
-    //   let plant = await Plant.findOne({
-    //     where: { id: req.params.id },
-    //   })
-    //   if(!!plant){
-    //     return res.status(200).json({ success: true, data: plant })
-    //   }
-    //   else{
-    //     return res.status(200).json({ success: true, data: {}})
-    //   }
-    // }
-    return res.status(200).send("gg");
-  } catch (err) {
-    return res.status(500).send("plant err:", err);
-  }
-});
+    if (!!req.params.id) {
+      let plant = await Plant.findOne({
+        where: { id: req.params.id },
+      });
 
-// stop 모터는 없애도 될듯
-router.get("/stopMotor/:id", async (req, res, next) => {
-  try {
-    console.log("모터 patch 들어오냐 ?");
-    // if(!!req.params.id){
-    //   let plant = await Plant.findOne({
-    //     where: { id: req.params.id },
-    //   })
-    //   if(!!plant){
-    //     return res.status(200).json({ success: true, data: plant })
-    //   }
-    //   else{
-    //     return res.status(200).json({ success: true, data: {}})
-    //   }
-    // }
-    return res.status(200).send("gg");
-  } catch (err) {
-    return res.status(500).send("plant err:", err);
+      if (plant.motor_status == true) {
+        await Plant.update(
+          { motor_status: false },
+          { where: { id: req.params.id } }
+        );
+        return res.status(200).send("active motor");
+      } else {
+        return res.sendStatus(204);
+      }
+    } else {
+      return res.status(204).send("No Content");
+    }
+  } catch {
+    return res.sendStatus(404);
   }
 });
 
