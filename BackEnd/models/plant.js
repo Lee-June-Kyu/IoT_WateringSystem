@@ -28,6 +28,14 @@ class Plant extends Sequelize.Model {
           type: Sequelize.DATE,
           allowNull: true,
         },
+        motor_status: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        },
+        watering_status: {
+          type: Sequelize.BOOLEAN,
+          defaultValue: false
+        },
         etc: {
           type: Sequelize.STRING(200),
           allowNull: true,

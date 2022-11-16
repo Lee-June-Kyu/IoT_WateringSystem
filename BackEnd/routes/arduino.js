@@ -42,7 +42,9 @@ router.get("/motor/:id", async (req, res,next) => {
   }
 })
 
-router.patch("/motor/:id", async (req, res,next) => {
+
+// stop 모터는 없애도 될듯
+router.get("/stopMotor/:id", async (req, res,next) => {
   try {
     console.log('모터 patch 들어오냐 ?')
     // if(!!req.params.id){
