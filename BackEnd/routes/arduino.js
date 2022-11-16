@@ -2,28 +2,43 @@ const express = require("express");
 
 const router = express.Router();
 
-const { Humidity, Plant } = require('../models');
+const { Humidity, Plant } = require("../models");
 
 router.post("/humidity/:id", async (req, res) => {
-  let dataSet = req.rawHeaders[11];
-  let jsonData = JSON.parse(dataSet);
-  // console.log(req);
-  // console.log(jsonData['hh']);
-  // console.log(Object.values(jsonData)[0]);
-  await Humidity.create({
-    humidity_value: jsonData['humidity'],   
-    PlantId: req.params.id    
-  })
   try {
-    return res.status(200).send('gg')
-  } catch(error) {
-    return res.sendStatus(400);
-  }
-})
+    if (!!req.params.id) {
+      let plant = await Plant.findOne({
+        where: { id: req.params.id },
+      });
 
-router.get("/motor/:id", async (req, res,next) => {
+      if (plant.watering_status == true) {
+        let dataSet = req.rawHeaders[11];
+        let jsonData = JSON.parse(dataSet);
+
+        await Humidity.create({
+          humidity_value: jsonData["humidity"],
+          PlantId: req.params.id,
+        });
+        plant.watering_status = true;
+        try {
+          return res.status(200).send("gg");
+        } catch (error) {
+          return res.sendStatus(400);
+        }
+      } else {
+        return res.sendStatus(204);
+      }
+    } else {
+      return res.status(204).send("No Content");
+    }
+  } catch {
+    return res.sendStatus(404);
+  }
+});
+
+router.get("/motor/:id", async (req, res, next) => {
   try {
-    console.log('모터 get 들어오냐 ?')
+    console.log("모터 get 들어오냐 ?");
     // if(!!req.params.id){
     //   let plant = await Plant.findOne({
     //     where: { id: req.params.id },
@@ -35,18 +50,16 @@ router.get("/motor/:id", async (req, res,next) => {
     //     return res.status(200).json({ success: true, data: {}})
     //   }
     // }
-    return res.status(200).send('gg')
-
+    return res.status(200).send("gg");
   } catch (err) {
-    return res.status(500).send('plant err:', err)
+    return res.status(500).send("plant err:", err);
   }
-})
-
+});
 
 // stop 모터는 없애도 될듯
-router.get("/stopMotor/:id", async (req, res,next) => {
+router.get("/stopMotor/:id", async (req, res, next) => {
   try {
-    console.log('모터 patch 들어오냐 ?')
+    console.log("모터 patch 들어오냐 ?");
     // if(!!req.params.id){
     //   let plant = await Plant.findOne({
     //     where: { id: req.params.id },
@@ -58,11 +71,10 @@ router.get("/stopMotor/:id", async (req, res,next) => {
     //     return res.status(200).json({ success: true, data: {}})
     //   }
     // }
-    return res.status(200).send('gg')
-
+    return res.status(200).send("gg");
   } catch (err) {
-    return res.status(500).send('plant err:', err)
+    return res.status(500).send("plant err:", err);
   }
-})
+});
 
 module.exports = router;
