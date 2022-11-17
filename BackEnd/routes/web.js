@@ -57,11 +57,14 @@ router.patch("/measure", async (req, res) => {
 
     // });
     console.log(req.body);
+    console.log("???", req.body.id);
+    const ID = Number(req.body.id);
     if (req.body.number === 1) {
       console.log("measure : 1값이 들어왔어유");
-      // await Plant.update(
-      //   { watering_status: false },
-      //   { where: { id: req.body.id } } //listparams에서 가져올 것, body에 id 값 넣어서 던질 것!!!!!!!
+      console.log(ID);
+      await Plant.update({ watering_status: true }, { where: { id: ID } });
+    } else if (req.body.number === 0) {
+      await Plant.update({ watering_status: false }, { where: { id: ID } });
     }
 
     return res.sendStatus(201).send("측정 성공");
@@ -73,14 +76,14 @@ router.patch("/measure", async (req, res) => {
 //물주기
 router.patch("/watering", async (req, res) => {
   try {
-
     console.log(req.body);
-    if(req.body.number === 1) {
+    const ID = Number(req.body.id);
+    if (req.body.number === 1) {
       console.log("watering : 1값이 들어왔어유");
-    // await Plant.update(
-    //   { motor_status: false },
-    //   { where: { id: req.body.id } }
-  }
+      console.log(ID);
+      await Plant.update({ motor_status: true }, { where: { id: ID } });
+    }
+
     return res.sendStatus(201).send("물주기 성공");
   } catch (error) {
     return res.sendStatus(500);
