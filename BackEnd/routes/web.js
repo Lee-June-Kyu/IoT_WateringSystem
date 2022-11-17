@@ -49,4 +49,38 @@ router.get("/humidity/:id", async (req, res) => {
   }
 });
 
+//습도 측정
+router.patch("/measure", async (req, res) => {
+  try {
+    // const post = await Post.create({
+    //   title: req.body.title
+
+    // });
+    console.log(req.body);
+    if (req.body.number === 1) {
+      console.log("1값이 들어왔어유");
+      // await Plant.update(
+      //   { watering_status: false },
+      //   { where: { id: req.body.id } } //listparams에서 가져올 것, body에 id 값 넣어서 던질 것!!!!!!!
+    }
+
+    return res.sendStatus(201).send("측정 성공");
+  } catch (error) {
+    return res.sendStatus(500);
+  }
+});
+
+//물주기
+router.patch("/watering", async (req, res) => {
+  try {
+    console.log(req.body);
+    // await Plant.update(
+    //   { motor_status: false },
+    //   { where: { id: req.body.id } }
+    return res.sendStatus(201).send("물주기 성공");
+  } catch (error) {
+    return res.sendStatus(500);
+  }
+});
+
 module.exports = router;
