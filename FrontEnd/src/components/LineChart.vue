@@ -13,7 +13,8 @@
 </template>
 
 <script>
-import { Line as LineChartGenerator } from 'vue-chartjs/legacy'
+import { Line as LineChartGenerator } from 'vue-chartjs' // legacy
+import axios from 'axios'
 
 import {
   Chart as ChartJS,
@@ -66,12 +67,12 @@ export default {
   data() {
     return {
       chartData: {
-        labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
+        labels: [0],
         datasets: [
           {
             label: '퍼센트(%)',
             backgroundColor: '#BCE29E',
-            data: [40, 39, 10, 40, 39, 100, 40]
+            data: [0]
           }
         ]
       },
@@ -80,6 +81,38 @@ export default {
         maintainAspectRatio: false
       }
     }
+  },
+  async created() {
+    await this.GetHumidity()
+  },
+  methods: {
+    async GetHumidity() {
+      await axios
+        .get(process.env.VUE_APP_API + `/web/humidity/${this.$route.path.split('/')[1]}`)
+        .then(res => {
+          console.log('#################################')
+          console.log(this.$route.path.split('/')[1])
+          console.log('원하는 data: ', res)
+          // console.log(res.data.data[0].createdAt.slice(0, 10))
+          // this.chartData.labels.push(res.data.data[0].createdAt.slice(0, 10))
+          // console.log('습도', res.data.data[0].humidity_value)
+          // this.chartData.datasets[0].data.push(res.data.data[0].humidity_value)
+          console.log(this.chartData)
+          for (let i = 1; i < 11; i++) {
+            this.chartData.labels.push(res.data.data[i].createdAt.slice(0, 10))
+            this.chartData.datasets[0].data.push(res.data.data[i].humidity_value)
+            console.log(this.chartData)
+          }
+        })
+        .catch(error => {
+          console.log('Error: plants', error)
+        })
+    }
   }
 }
 </script>
+<style>
+* {
+  font-family: 'Jua', sans-serif;
+}
+</style>

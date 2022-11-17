@@ -15,8 +15,14 @@ export default {
   components: {
     SideBar
   },
+
   data: () => ({
     //
   })
 }
 </script>
+<style>
+* {
+  font-family: 'Jua', sans-serif;
+}
+</style>
