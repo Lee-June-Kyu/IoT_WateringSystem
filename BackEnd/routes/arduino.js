@@ -19,9 +19,15 @@ router.post("/humidity/:id", async (req, res) => {
           humidity_value: jsonData["humidity"],
           PlantId: req.params.id,
         });
+        if (jsonData["humidity"] < 30) {
+          await Plant.update(
+            { motor_status: true },
+            { where: { id: req.params.id } }
+          );
+        }
         // plant.watering_status = true;
         try {
-          return res.status(200).send("gg");
+          return res.status(200).send("OK");
         } catch (error) {
           return res.sendStatus(400);
         }
@@ -42,6 +48,7 @@ router.get("/motor/:id", async (req, res, next) => {
       let plant = await Plant.findOne({
         where: { id: req.params.id },
       });
+      console.log(plant.motor_status);
 
       if (plant.motor_status == true) {
         await Plant.update(
