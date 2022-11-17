@@ -92,9 +92,14 @@
             <p class="text-caption">습도</p>
           </div>
           <v-spacer></v-spacer>
-          <form action="" @submit.prevent="Measure()">
+          <form v-if="measure" @submit.prevent="CancleMeasure()">
             <div>
-              <v-btn small type="submit"> 측정 </v-btn>
+              <v-btn small color="success" type="submit">취소</v-btn>
+            </div>
+          </form>
+          <form v-else @submit.prevent="Measure()">
+            <div>
+              <v-btn small type="submit">측정</v-btn>
             </div>
           </form>
         </v-card-title>
@@ -114,7 +119,8 @@ export default {
   },
   data() {
     return {
-      plantdata: {}
+      plantdata: {},
+      measure: false
     }
   },
   created() {
@@ -131,6 +137,8 @@ export default {
           this.plantdata = res.data.data
           this.plantdata.starting_date = this.plantdata.starting_date.slice(0, 10)
           this.plantdata.watering_date = this.plantdata.watering_date.slice(0, 10)
+          // console.log();
+          console.log('watering_status : ', this.plantdata.watering_status)
         })
         .catch(error => {
           console.log('Error: plants', error)
@@ -140,7 +148,7 @@ export default {
       console.log('보내기')
       const axiosBody = {
         number: 1,
-        id: this.$route.params.id
+        id: this.$route.path.split('/')[1]
       }
       await axios
         .patch(process.env.VUE_APP_API + `/web/watering`, axiosBody)
@@ -151,18 +159,34 @@ export default {
           console.log('Error: plants', error)
         })
     },
+
+    //측정 시작
     async Measure() {
+      this.measure = !this.measure
       const axiosBody = {
         number: 1,
-        id: this.$route.params.id
+        id: this.$route.path.split('/')[1]
       }
       await axios
         .patch(process.env.VUE_APP_API + `/web/measure`, axiosBody)
         .then(res => {
-          this.plantdata = res.data.data
-          this.plantdata.starting_date = this.plantdata.starting_date.slice(0, 10)
-          this.plantdata.watering_date = this.plantdata.watering_date.slice(0, 10)
-          console.log(this.plantdata)
+          console.log(res)
+        })
+        .catch(error => {
+          console.log('Error: plants', error)
+        })
+    },
+    //측정 취소
+    async CancleMeasure() {
+      this.measure = false
+      const axiosBody = {
+        number: 0,
+        id: this.$route.path.split('/')[1]
+      }
+      await axios
+        .patch(process.env.VUE_APP_API + `/web/measure`, axiosBody)
+        .then(res => {
+          console.log(res)
         })
         .catch(error => {
           console.log('Error: plants', error)
