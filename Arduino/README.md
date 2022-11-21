@@ -20,3 +20,6 @@ WifiEsp : 2.2.1
 2. ESP-01 IP 알아내기
 3. ESP-01 IP와 Wifi의 SSID와 PASSWORD 설정하기
 4. 아두이노 UNO에 Device 연결하기
+
+## Arduino Circuit Diagram
+<img width="463" alt="Arduino_Circuit_Diagram" src="https://user-images.githubusercontent.com/101397432/203059249-21c357f0-b726-4784-a485-ff4d99ba9a73.png">
