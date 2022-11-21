@@ -22,6 +22,8 @@
 3. 습도 센서 Database에 저장
 4. WebPage에서 식물의 습도 정보 조회와 모터 원격 제어 구현
 
+</br>
+
 # Notion
 https://cyclic-cousin-0da.notion.site/ecca8d10f6584410aaa66e701bc9fc4b
 
