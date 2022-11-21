@@ -16,6 +16,11 @@
 
 </br>
 
+# 프로젝트 구성도
+![project](https://user-images.githubusercontent.com/80251711/203074064-9e603810-e180-4ee7-868b-52b613672bc8.png)
+
+</br>
+
 # 구현 요약
 1. Arduino를 이용해서 식물 근처 장치들을 제어한다. ( 습도 측정 , 급수 모터 작동 )
 2. Arduino의 ESP-01 장치와 PC Server와 HTTP 통신 
