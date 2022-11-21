@@ -1,9 +1,9 @@
-# iot_frontend
+# WateringSystem FrontEnd - Vue.js
 
 ## This repo is for Vue2
 You are looking at the repository for Vue2.
 
-## FrontEnd Libraries Used
+## 라이브러리 버전
 ```
     "axios": "^1.1.3",
     "chart.js": "^4.0.1",
@@ -42,7 +42,7 @@ g: 해당 패키지가 현재 디렉토리뿐만 아니라 앞으로 생성되�
 > npm install chart.js
 ```
 
-
+## Page
 ### Main Page
 ![main](https://user-images.githubusercontent.com/101397432/203062418-fa48a131-ebbf-436a-b4d4-c44fff0503de.png)
 
