@@ -56,6 +56,7 @@ SVG Core 추가 (Add SVG Core)
 ```
 Vue Component 추가 (Add the Vue Component)
 ```console
+# for Vue 2.x
 > npm i --save @fortawesome/vue-fontawesome@latest-2
 ```
 
