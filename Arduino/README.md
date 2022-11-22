@@ -17,7 +17,7 @@ WifiEsp : 2.2.1
 
 ## Arduino Wifi setup
 1. WiFiEsp, ArduinoJson 라이브러리 설치하기 
-2. 아두이노 baud 9600으로 맞추기 
+2. 아두이노 baud rate 9600으로 맞추기 
 3. ESP-01 IP 알아내기
 4. ESP-01 IP와 Wifi의 SSID와 PASSWORD 설정하기
 5. hostIP로 ESP-01 url, port 설정하기
