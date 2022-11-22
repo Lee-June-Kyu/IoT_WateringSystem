@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <div class="box">
+      <v-icon color="#BCE29E" x-large>fas fa-seedling</v-icon>
       <h1 class="main__text">Welcome to Smart Farm</h1>
     </div>
   </v-app>
@@ -16,6 +17,7 @@ export default {
   width: 80vw;
   height: 90vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }

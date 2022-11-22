@@ -9,11 +9,12 @@
     :styles="styles"
     :width="width"
     :height="height"
+    style="font-family: 'Jua', sans-serif !important"
   />
 </template>
 
 <script>
-import { Line as LineChartGenerator } from 'vue-chartjs' // legacy
+import { Line as LineChartGenerator } from 'vue-chartjs/legacy' // legacy
 import axios from 'axios'
 
 import {
@@ -72,14 +73,72 @@ export default {
           {
             label: '퍼센트(%)',
             backgroundColor: '#BCE29E',
-            data: [0]
+            data: [0],
+            font: {
+              family: "'Jua'"
+            }
           }
-        ]
+        ],
+        options: {
+          responsive: false,
+          legend: {
+            labels: {
+              fontColor: 'red',
+              fontSize: 18,
+              font: {
+                family: 'Jua'
+              }
+            }
+          },
+          scales: {
+            yAxes: [
+              {
+                ticks: {
+                  beginAtZero: true,
+                  stepSize: 2,
+                  fontColor: 'rgba(251, 203, 9, 1)',
+                  fontSize: 14,
+                  font: {
+                    family: "'Jua'"
+                  }
+                },
+                gridLines: {
+                  color: 'rgba(166, 201, 226, 1)',
+                  lineWidth: 3
+                }
+              }
+            ],
+            xAxes: [
+              {
+                ticks: {
+                  fontColor: 'rgba(12, 13, 13, 1)',
+                  fontSize: 14
+                },
+                gridLines: {
+                  color: 'rgba(87, 152, 23, 1)',
+                  lineWidth: 1
+                }
+              }
+            ],
+            tooltips: {
+              bodyFontFamily: 'Jua'
+            }
+          }
+        }
       },
+
       chartOptions: {
         responsive: true,
         maintainAspectRatio: false
       }
+    }
+  },
+  computed: {},
+  watch: {
+    $route() {
+      this.chartData.labels = []
+      this.chartData.datasets[0].data = [0]
+      this.GetHumidity()
     }
   },
   async created() {
@@ -88,7 +147,7 @@ export default {
   methods: {
     async GetHumidity() {
       await axios
-        .get(process.env.VUE_APP_API + `/web/humidity/${this.$route.path.split('/')[1]}`)
+        .get(process.env.VUE_APP_API + `/web/humidity/${this.$route.params.id}`)
         .then(res => {
           console.log('#################################')
           console.log(this.$route.path.split('/')[1])
@@ -98,9 +157,20 @@ export default {
           // console.log('습도', res.data.data[0].humidity_value)
           // this.chartData.datasets[0].data.push(res.data.data[0].humidity_value)
           console.log(this.chartData)
+          let temp = res.data.data
+
+          temp.sort((a, b) => {
+            return Date(a.createdAt) - Date(b.createdAt)
+          })
+
+          console.log('temp', temp)
+
+          let temp2 = temp.slice(temp.length - 10)
+          console.log(temp2)
+
           for (let i = 1; i < 11; i++) {
-            this.chartData.labels.push(res.data.data[i].createdAt.slice(0, 10))
-            this.chartData.datasets[0].data.push(res.data.data[i].humidity_value)
+            this.chartData.labels.push(temp2[i].createdAt.slice(0, 10))
+            this.chartData.datasets[0].data.push(temp2[i].humidity_value)
             console.log(this.chartData)
           }
         })
@@ -110,9 +180,20 @@ export default {
     }
   }
 }
+
+// let cv = document.querySelector('canvas')
+// var ctx = cv.getContext('2d')
+// ctx.default.font.size = '18px '
 </script>
-<style>
-* {
+
+<style lang="scss">
+@font-face {
   font-family: 'Jua', sans-serif;
+}
+.v-application .text-caption {
+  font-family: 'Jua', sans-serif !important;
+}
+canvas {
+  font-family: 'Jua', sans-serif !important;
 }
 </style>

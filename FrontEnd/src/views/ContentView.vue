@@ -73,15 +73,31 @@
             <div style="">
               <v-spacer></v-spacer>
               <!-- <v-btn small type="submit" style="float: right"> 물 주기</v-btn> -->
-              <v-btn class="mx-2" fab color="#EEF1FF" small type="submit" style="float: right"
+              <v-btn class="mx-2" fab color="#BCE29E" small type="submit" style="float: right; margin-right: 30px"
                 ><v-icon>fas fa-faucet</v-icon></v-btn
               >
             </div>
           </form>
           <v-spacer></v-spacer>
-
-          <div style="margin-right: 370px">
-            <v-img max-width="200" max-height="200" src="../assets/flower.png"></v-img>
+          <div v-if="action">
+            <v-img
+              class="rotateimg"
+              max-width="100"
+              max-height="100"
+              src="../assets/watering_can.png"
+              style="margin-left: 200px"
+            ></v-img>
+            <v-img max-width="200" max-height="200" src="../assets/flower.png" style="margin-right: 300px"></v-img>
+          </div>
+          <div v-else>
+            <v-img
+              class="rerotateimg"
+              max-width="100"
+              max-height="100"
+              src="../assets/watering_can.png"
+              style="margin-left: 200px"
+            ></v-img>
+            <v-img max-width="200" max-height="200" src="../assets/flower.png" style="margin-right: 300px"></v-img>
           </div>
         </v-card>
       </div>
@@ -92,16 +108,14 @@
             <p class="text-caption">습도</p>
           </div>
           <v-spacer></v-spacer>
-          <form v-if="measure" @submit.prevent="CancleMeasure()">
-            <div>
-              <v-btn small color="success" type="submit">취소</v-btn>
-            </div>
-          </form>
-          <form v-else @submit.prevent="Measure()">
-            <div>
-              <v-btn small type="submit">측정</v-btn>
-            </div>
-          </form>
+
+          <div v-if="measure">
+            <v-btn small color="success" type="submit" @click="CancleMeasure()">취소</v-btn>
+          </div>
+
+          <div v-else>
+            <v-btn small type="submit" @click="Measure()">측정</v-btn>
+          </div>
         </v-card-title>
         <LineChart />
       </div>
@@ -113,14 +127,20 @@
 import axios from 'axios'
 import LineChart from '../components/LineChart.vue'
 export default {
-  name: 'Main1',
+  name: 'Content',
   components: {
     LineChart
   },
   data() {
     return {
       plantdata: {},
-      measure: false
+      measure: false,
+      action: false
+    }
+  },
+  watch: {
+    $route() {
+      this.GetPlants()
     }
   },
   created() {
@@ -132,7 +152,7 @@ export default {
   methods: {
     async GetPlants() {
       await axios
-        .get(process.env.VUE_APP_API + `/web/plant/1`)
+        .get(process.env.VUE_APP_API + `/web/plant/${this.$route.params.id}`)
         .then(res => {
           this.plantdata = res.data.data
           this.plantdata.starting_date = this.plantdata.starting_date.slice(0, 10)
@@ -145,6 +165,7 @@ export default {
         })
     },
     async onSubmit() {
+      this.action = !this.action
       console.log('보내기')
       const axiosBody = {
         number: 1,
@@ -158,6 +179,8 @@ export default {
         .catch(error => {
           console.log('Error: plants', error)
         })
+      setTimeout(() => console.log('물주기'), 10000)
+      this.action = false
     },
 
     //측정 시작
@@ -206,6 +229,11 @@ export default {
 /* .v-list-item-subtitle {
   font-size: ;
 } */
+.rotateimg {
+  transition: transform 1s ease-in-out;
+  transform: rotateZ(-30deg);
+  /* transform: rotateZ(30deg); */
+}
 .h-graph {
   padding-top: 45px;
 }

@@ -44,7 +44,7 @@ export default {
         })
     },
     go(id) {
-      this.$router.push(`${id}`)
+      this.$router.push(`/content/${id}`)
     }
   }
 }

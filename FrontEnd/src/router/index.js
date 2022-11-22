@@ -1,8 +1,7 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import MainView from '../views/MainView.vue'
-import MainView1 from '../views/Main1View.vue'
-import MainView2 from '../views/Main2View.vue'
+import ContentView from '../views/ContentView.vue'
 
 Vue.use(VueRouter)
 
@@ -11,19 +10,12 @@ const routes = [
     path: '/',
     name: 'Main',
     component: MainView
-    // children: [{ path: '/:id', component: MainView }]
   },
   {
-    path: '/1',
-    name: 'Main1',
-    component: MainView1
-    // children: [{ path: '/:id', component: MainView }]
-  },
-  {
-    path: '/2',
-    name: 'Main2',
-    component: MainView2
-    // children: [{ path: '/:id', component: MainView }]
+    path: '/content',
+    name: 'content',
+    component: ContentView,
+    children: [{ path: '/content/:id', component: ContentView }]
   }
 ]
 
