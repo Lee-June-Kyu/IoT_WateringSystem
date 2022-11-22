@@ -43,7 +43,7 @@ g: 해당 패키지가 현재 디렉토리뿐만 아니라 앞으로 생성되�
 > npm install chart.js
 ```
 
-## FontAwesome
+## Font Awesome
 SVG Core 추가 (Add SVG Core)
 ```console
 > npm i --save @fortawesome/fontawesome-svg-core
