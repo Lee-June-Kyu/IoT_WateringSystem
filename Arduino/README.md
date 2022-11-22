@@ -5,7 +5,7 @@
 
 ## Arduino device
 - capacitive soil moisture sensor v1.2 : 습도 센서
-- step motor : 모터
+- stepper motor : 모터
 - ESP-01 : Wifi 장치
 
 ## Arduino Libraries used
