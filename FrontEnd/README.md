@@ -36,10 +36,27 @@ g: 해당 패키지가 현재 디렉토리뿐만 아니라 앞으로 생성되�
 ```console
 > npm install vuetify
 ```
+
 ## chart.js
 (https://www.chartjs.org/docs/latest/getting-started/installation.html)
 ```console
 > npm install chart.js
+```
+
+## FontAwesome
+SVG Core 추가 (Add SVG Core)
+```console
+> npm i --save @fortawesome/fontawesome-svg-core
+```
+아이콘 패키지 추가 (Add Icon Packages)
+```console
+> npm i --save @fortawesome/free-solid-svg-icons
+> npm i --save @fortawesome/free-regular-svg-icons
+> npm i --save @fortawesome/free-brands-svg-icons
+```
+Vue Component 추가 (Add the Vue Component)
+```console
+> npm i --save @fortawesome/vue-fontawesome@latest-2
 ```
 
 ## Page
