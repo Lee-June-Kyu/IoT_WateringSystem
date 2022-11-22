@@ -110,7 +110,7 @@
           <v-spacer></v-spacer>
 
           <div v-if="measure">
-            <v-btn small color="success" type="submit" @click="CancleMeasure()">취소</v-btn>
+            <v-btn small color="success" type="submit" @click="CancelMeasure()">취소</v-btn>
           </div>
 
           <div v-else>
@@ -200,7 +200,7 @@ export default {
         })
     },
     //측정 취소
-    async CancleMeasure() {
+    async CancelMeasure() {
       this.measure = false
       const axiosBody = {
         number: 0,
